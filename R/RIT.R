@@ -98,6 +98,12 @@ RIT <- function(x,y,approx="lpd4",seed=NULL){
 
   if (p<0) p=0;
 
-  out=list(method="RIT",p.value=p,statistic=Sta);
-  return(out)
+  out <- list(method = paste("Approximate Kernel-based Conditional Independence", sep=" "),
+              p.value = p,
+              statistic = Sta,
+              estimate = Sta,
+              replicates = NULL,
+              data.name = "RCIT");
+    class(out) <- "htest"
+    return(out)
 }

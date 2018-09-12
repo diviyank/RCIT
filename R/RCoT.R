@@ -151,7 +151,13 @@ RCoT <- function(x,y,z=NULL,approx="lpd4",num_f=100,num_f2=5,seed=NULL){
 
     if (p<0) p=0;
 
-    out=list(p.value=p,statistic=Sta);
+    out <- list(method = paste("Approximate Kernel-based Conditional Independence", sep=" "),
+                p.value = p,
+                statistic = Sta,
+                estimate = Sta,
+                replicates = NULL,
+                data.name = "RCIT");
+    class(out) <- "htest"
     return(out)
   }
   
