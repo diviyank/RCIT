@@ -7,7 +7,7 @@ The package depends on the MASS and momentchi2 packages on CRAN, so please insta
 
 > library(devtools)
 
-> install_github("ericstrobl/RCIT")
+> install_github("Diviyan-Kalainathan/RCIT")
 
 > library(RCIT)
 
