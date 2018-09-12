@@ -98,6 +98,6 @@ RIT <- function(x,y,approx="lpd4",seed=NULL){
 
   if (p<0) p=0;
 
-  out=list(p=p,Sta=Sta);
+  out=list(method="RIT",p.value=p,statistic=Sta);
   return(out)
 }
