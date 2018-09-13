@@ -97,7 +97,7 @@ CItest <- function (  x,
   if (is.null(suffStat$data)){stop("Need to provide data")}
   n <- nrow(suffStat$data)
   if (length(S)==0L){
-    pval = RIT(x=suffStat$data[,x], y=suffStat$data[,y])$p.value}  # , sig = suffStat$sig, p=suffStat$p, numCol=suffStat$numCol
+    pval = RIT(x=suffStat$data[,x], y=suffStat$data[,y])$p.value  # , sig = suffStat$sig, p=suffStat$p, numCol=suffStat$numCol
     }
   else{
     if (suffStat$ic.method=='RCoT'){pval <- RCoT(x=suffStat$data[,x], y=suffStat$data[,y], z=suffStat$data[,S])$p.value}
