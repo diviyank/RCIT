@@ -65,7 +65,7 @@
 #' test5b
 #' test6b
 
-kernelCItest <- function (  x,
+CItest <- function (  x,
                             y,
                             S=NULL,
                             suffStat,
@@ -97,23 +97,14 @@ kernelCItest <- function (  x,
   if (is.null(suffStat$data)){stop("Need to provide data")}
   n <- nrow(suffStat$data)
   if (length(S)==0L){
-    if (suffStat$ic.method=='dcc.perm'){pval = dcov.test(x=suffStat$data[,x], y=suffStat$data[,y], index = suffStat$index, R = suffStat$p)$p.value}
-    if (suffStat$ic.method=='dcc.perm'){pval = dcov.test(x=suffStat$data[,x], y=suffStat$data[,y], index = suffStat$index, R = suffStat$p)$p.value}
-    else if (suffStat$ic.method=='dcc.gamma'){pval = dcov.gamma(x=suffStat$data[,x], y=suffStat$data[,y], index = suffStat$index, numCol=suffStat$numCol)$p.value}
-    else if (suffStat$ic.method=='hsic.perm'){pval = hsic.perm(x=suffStat$data[,x], y=suffStat$data[,y], sig = suffStat$sig, p=suffStat$p, numCol=suffStat$numCol)$p.value}
-    else if ((suffStat$ic.method=='hsic.gamma') || (suffStat$ic.method=='hsic.clust')){pval = hsic.gamma(x=suffStat$data[,x], y=suffStat$data[,y], sig=suffStat$sig, numCol=suffStat$numCol)$p.value}
-  }
-  else{
-    if (suffStat$ic.method=='hsic.clust'){pval <- hsic.clust(x=suffStat$data[,x], y=suffStat$data[,y], z=suffStat$data[,S], sig=suffStat$sig, p=suffStat$p, numCluster=suffStat$numCluster, numCol=suffStat$numCol, eps=suffStat$eps, paral=suffStat$paral)$p.value}
-    else {
-      residuals <- regrXonS(suffStat$data[,c(x,y)], suffStat$data[,S])
-      resx <- residuals[,1]
-      resy <- residuals[,2]
-      if (suffStat$ic.method=='dcc.perm'){pval = dcov.test(resx, resy, index = suffStat$index, R = suffStat$p)$p.value}
-      else if (suffStat$ic.method=='dcc.gamma'){pval = dcov.gamma(x=resx, y=resy, index = suffStat$index, numCol=suffStat$numCol)$p.value}
-      else if (suffStat$ic.method=='hsic.perm'){pval = hsic.perm(x=resx, y=resy, sig = suffStat$sig, p=suffStat$p, numCol=suffStat$numCol)$p.value}
-      else if (suffStat$ic.method=='hsic.gamma'){pval = hsic.gamma(x=resx, y=resy, sig=suffStat$sig, numCol=suffStat$numCol)$p.value}
+    pval = RIT(x=suffStat$data[,x], y=suffStat$data[,y])$p.value}  # , sig = suffStat$sig, p=suffStat$p, numCol=suffStat$numCol
     }
+  else{
+    if (suffStat$ic.method=='RCoT'){pval <- RCoT(x=suffStat$data[,x], y=suffStat$data[,y], z=suffStat$data[,S])$p.value}
+    #  sig=suffStat$sig, p=suffStat$p, numCluster=suffStat$numCluster, numCol=suffStat$numCol, eps=suffStat$eps, paral=suffStat$paral
+    else {
+        pval <- RCIT(x=suffStat$data[,x], y=suffStat$data[,y], z=suffStat$data[,S])$p.value
+      }
   }
   return(pval)
 }
