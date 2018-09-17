@@ -98,13 +98,20 @@ CItest <- function (  x,
   n <- nrow(suffStat$data)
   if (length(S)==0L){
     pval = RIT(x=suffStat$data[,x], y=suffStat$data[,y])$p.value  # , sig = suffStat$sig, p=suffStat$p, numCol=suffStat$numCol
-    }
+    # print("0")
+  }
   else{
-    if (suffStat$ic.method=='RCoT'){pval <- RCoT(x=suffStat$data[,x], y=suffStat$data[,y], z=suffStat$data[,S])$p.value}
+    if (! is.atomic(suffStat$data[,S])){
+        zz <- t(do.call(rbind, suffStat$data[,S]))
+        } else{ zz <- suffStat$data[,S]}
+    if (suffStat$ic.method=='RCIT::RCIT'){
+        pval <- RCIT(x=suffStat$data[,x], y=suffStat$data[,y], z=zz)$p
+    }
     #  sig=suffStat$sig, p=suffStat$p, numCluster=suffStat$numCluster, numCol=suffStat$numCol, eps=suffStat$eps, paral=suffStat$paral
+    #
     else {
-        pval <- RCIT(x=suffStat$data[,x], y=suffStat$data[,y], z=suffStat$data[,S])$p.value
-      }
+        pval <- RCoT(x=suffStat$data[,x], y=suffStat$data[,y], z=zz)$p.value
+    }
   }
   return(pval)
 }
