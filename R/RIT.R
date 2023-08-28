@@ -20,7 +20,7 @@ RIT <- function(x,y,approx="lpd4",seed=NULL){
 
   if (sd(x)==0 | sd(y)==0){
     out=list(p=1,Sta=0);
-    return(out$p)
+    return(out)
   }
 
   x=matrix2(x);
