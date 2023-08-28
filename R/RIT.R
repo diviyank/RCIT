@@ -19,8 +19,8 @@
 RIT <- function(x,y,approx="lpd4",seed=NULL){
 
   if (sd(x)==0 | sd(y)==0){
-    out=list(p=1,Sta=0,w=w,b=b);
-    return(out$p)
+    out=list(p.value=1,Sta=0);
+    return(out)
   }
 
   x=matrix2(x);
